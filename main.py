@@ -16,6 +16,12 @@ def main(
     logger = logging.getLogger(__name__)
     
     logger.info(f"Starting assembly for file: {file_name}")
+
+    # Check extension
+    logger.info("Checking file extension")
+    if not file_name.endswith('.asm'):
+        logger.error("File must have a .asm extension")
+        return
     
     # Open file and check it exists
     try:
