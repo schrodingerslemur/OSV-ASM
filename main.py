@@ -8,7 +8,7 @@ app = typer.Typer(add_completion=False)
 @app.command()
 def main(
     file_name: Annotated[str, typer.argument(help="Name of the file to assemble")]
-) - > None:
+) -> None:
     """
     Assembles the specified file.
     """
