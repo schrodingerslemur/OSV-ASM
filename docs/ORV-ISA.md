@@ -1,5 +1,5 @@
 # Instruction set architecture for ORV
-Based on RISCV-32I
+Based on the base instructions on RISCV-32I
 
 Types of instructions:
 1. R-type: All register-only integer computation instructions
@@ -9,7 +9,55 @@ Types of instructions:
 5. U-type: Special instructions (e.g. LUI, AUIPC)
 6. J-type: All jump instructions
 
-Instruction list: 
+ORV ISA: 
+1. lui
+Format: `lui rd, imm`
+Type: U-type
+Description: Moves top 20 bits of imm and 12 low bits with zeros into rd.
+
+2. auipc
+Format: `auipc rd, imm`
+Type: 
+
+3. addi
+
+4. slti
+5. sltiu
+6. xori
+7. ori
+8. andi
+9. slli
+10. srli
+11. srai
+12. add
+13. sub
+14. sll
+15. slt
+16. sltu
+17. xor
+18. srl
+19. sra
+20. or
+21. and
+22. lb
+23. lh
+24. lw
+25. lbu
+26. lhu
+27. sb
+28. sh
+29. sw
+30. jal
+31. jalr
+32. beq
+33. bne
+34. blt
+35. bge
+36. bltu
+37. bgeu
+
+
+Full RV32I instruction list: 
 1. lui
 Format: `lui rd, imm`
 Type: U-type
