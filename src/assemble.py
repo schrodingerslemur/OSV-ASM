@@ -1,5 +1,7 @@
 import re
 
+from src.constants import opcode, funct_3, funct_7
+
 def assemble(
         content: str
 ) -> str:
@@ -15,8 +17,25 @@ def assemble(
     lines = content.splitlines()
 
     for idx in range(len(lines)):
-            # handle different types
-            # handle pseudo instructions
-            pass
+        line = lines[idx].strip()
+
+        # Comments or empty lines
+        if line == '' or line.startswith('#'):
+            continue 
+
+        # Instructions
+        # parse instruction
+        tokens = re.split(r'[,\s()]+', line)
+        instr = tokens[0]
+        args = tokens[1:]
+
+        # opcode
+        if instr not in opcode:
+            raise ValueError(f"Unknown instruction: {instr}")
+        instr_opcode = opcode[instr]
+
+        # handle different types
+        # handle pseudo instructions
+        pass
 
     return '\n'.join(assembled_lines)
