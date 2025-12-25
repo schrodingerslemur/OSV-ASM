@@ -16,6 +16,8 @@ def assemble(
     """
     assembled_lines = []
     lines = content.splitlines()
+    address = 0
+    labels = {}
 
     for idx in range(len(lines)):
         line = lines[idx].strip()
@@ -31,8 +33,10 @@ def assemble(
         non_op = match.group(2)
 
         if op.endswith(':'):
-            # label
+            labels[op[:-1]] = address
             continue
+        else:
+            address += 4
         # TODO: check if it is valid instruction
 
         pass
