@@ -1,7 +1,7 @@
 import re
 import sys
 
-from constants import opcode, funct_3, funct_7
+from constants import opcode, pseudo, funct_3, funct_7
 
 def assemble(
         content: str
