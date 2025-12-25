@@ -173,6 +173,45 @@ Description: `rd = pc + 4; pc += offset`
 Format: `jalr rd, rs1, offset`
 Description: `temp = pc + 4; pc = (rs1 + offset) & ~1; rd = temp`
 
+### Pseudo-instructions:
+1. nop
+Format: `nop`
+Description: `addi x0, x0, 0`
+
+2. mv
+Format: `mv rd, rs`
+Description: `addi rd, rs, 0`
+
+3. li
+Format: `li rd, imm`
+Descripption: 
+If imm fits in 12 bits: `addi rd, x0, imm`  
+Else:  
+```asm
+lui rd, imm[31:12]
+addi rd, rd, imm[11:0]
+```
+
+4. la
+Format: `la rd, label`
+Description:  
+```asm
+lui rd, %hi(label)
+addi rd, rd, %lo(label)
+```
+
+5. not
+Format: `not rd, rs`
+Description: `xori rd, rs, -1`
+
+6. neg
+Format: `neg rd, rs`
+Description: `sub rd, x0, rs`
+
+7. negw
+Format: `negw rd, rs`
+Description: `subw rd, x0, rs`s
+
 
 ## For reference:
 
