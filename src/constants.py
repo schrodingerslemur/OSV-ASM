@@ -1,3 +1,13 @@
+pseudo = {
+    'nop': ['addi x0, x0, 0'],
+    'mv': ['addi x0, x0, 0'],
+    'li': ['addi x0, x0, IMM'],  # IMM to be replaced during assembly
+    'la': ['lui x0, %hi(label)', 'addi x0, x0, %lo(label)'],
+    'not': ['xori x0, x0, -1'],
+    'neg': ['sub x0, x0, x0'],
+    'negw': ['subw x0, x0, x0'],
+}
+
 opcode = {
     # R-type
     "add":   0b0110011,
