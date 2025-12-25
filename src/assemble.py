@@ -26,20 +26,22 @@ def assemble(
         if line == '' or line.startswith('#'):
             continue 
 
-        # Instructions
-        # parse instruction
+        # Operation-handling
         match = re.search(r'\s*(\w+)\s+(.*)', line)
         op = match.group(1)
         non_op = match.group(2)
 
+        # Label-handling
         if op.endswith(':'):
             labels[op[:-1]] = address
-            continue
         else:
             address += 4
-        # TODO: check if it is valid instruction
 
-        pass
+        # Instruction-handling
+        if op in pseudo:
+            for pseudo_inst in pseudo[op]:
+                # assembled_lines.append(pseudo_inst.replace('label', non_op))
+
 
     return '\n'.join(assembled_lines)
 
