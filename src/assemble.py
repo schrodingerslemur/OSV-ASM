@@ -30,8 +30,11 @@ def assemble(
         op = match.group(1)
         non_op = match.group(2)
 
-        # handle different types
-        # handle pseudo instructions
+        if op.endswith(':'):
+            # label
+            continue
+        # TODO: check if it is valid instruction
+
         pass
 
     return '\n'.join(assembled_lines)
