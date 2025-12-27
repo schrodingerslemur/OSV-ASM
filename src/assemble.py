@@ -30,7 +30,10 @@ def assemble(
         assembled_line = assemble_line(line, metadata)
 
         if assembled_line:
-            assembled_lines.append(assembled_line)
+            if isinstance(assembled_line, list):
+                assembled_lines.extend(assembled_line)
+            else:
+                assembled_lines.append(assembled_line)
 
     return '\n'.join(assembled_lines)
 
@@ -58,10 +61,30 @@ def assemble_line(
 
     # Instruction-handling --------------------------
     opcode, opcode_type = get_opcode_and_type(op)
-    instruction = get_instruction(op, non_op, opcode, opcode_type, metadata)
 
-    return instruction
+    if opcode_type == 'PSEUDO':
+        args = get_pseudo_args(op, non_op, metadata)
+        for pseudo_inst in pseudo[op]:
+            pseudo_op, pseudo_non_op = parse_op(pseudo_inst)
+            pseudo_opcode, pseudo_opcode_type = get_opcode_and_type(pseudo_op)
+            instructions = get_instruction(pseudo_op, pseudo_non_op, pseudo_opcode, pseudo_opcode_type, metadata)
+            return instructions # list of instructions
+    else:
+        instruction = get_instruction(op, non_op, opcode, opcode_type, metadata)
+        return instruction
 
+def get_opcode_and_type(
+    op: str
+) -> tuple[str, str]:
+    """Retrieves the opcode and type for a given operation."""
+    if op in pseudo:
+        return None, 'PSEUDO'
+    elif op in opcode:
+        opcode_info = opcode[op]
+        return opcode_info[0], opcode_info[1]
+    else:
+        raise InvalidOperationError(f"Invalid operation: {op}")
+    
 def parse_op(
     line: str
 ) -> tuple[str, str]:

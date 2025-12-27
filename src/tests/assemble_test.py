@@ -1,7 +1,7 @@
 import sys
 
 from src.assemble import parse_op, handle_address_and_label
-from src.errors import MissingOperationError
+from src.errors import MissingOperationError, InvalidOperationError
 
 def test_parse_op_valid():
     line = "ADD R1, R2, R3"
@@ -22,5 +22,17 @@ def test_parse_op_missing():
     except MissingOperationError as e:
         assert isinstance(e, MissingOperationError)
 
-def test_parse_op_invalid():
-    pass
+def test_get_opcode_and_type_invalid():
+    from src.assemble import get_opcode_and_type
+    invalid_op = "invalid_op"
+    try:
+        get_opcode_and_type(invalid_op)
+    except InvalidOperationError as e:
+        assert isinstance(e, InvalidOperationError)
+
+def test_get_opcode_and_type_valid():
+    from src.assemble import get_opcode_and_type
+    op = "add"
+    opcode, opcode_type = get_opcode_and_type(op)
+    assert opcode == '0110011'
+    assert opcode_type == 'R'
