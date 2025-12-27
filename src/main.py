@@ -4,6 +4,7 @@ from typing import Annotated
 import logging
 
 from assemble import assemble
+from errors import AssemblyError
 
 app = typer.Typer(add_completion=False)
 
@@ -49,8 +50,10 @@ def main(
         with open(output_file_name, 'w') as output_file:
             output_file.write(assembled_content)
         logger.info(f"Assembly complete. Output written to {output_file_name}")
+    except AssemblyError as ae:
+        logger.error(f"Assembly error: {ae}")
     except Exception as e:
-        logger.error(f"An error occurred during assembly: {e}")
+        logger.error(f"An unexpected error occurred during assembly: {e}")
     
     return
 
