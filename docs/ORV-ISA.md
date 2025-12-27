@@ -114,23 +114,23 @@ Format: `andi rd, rs1, imm`
 Description: `rd = rs1 & imm`
 Op-codes: funct3 = `111`
 
+Shamt instructions:
+(shamt is the shift amount, encoded in imm[4:0])
+
 7. slli
 Format: `slli rd, rs1, shamt`
 Description: `rd = rs1 << shamt`
 Op-codes: funct3 = `001`, funct7 = `0000000`
-(shamt is the shift amount, encoded in imm[4:0])
 
 8. srli 
 Format: `srli rd, rs1, shamt`
 Description: `rd = rs1 >> shamt (logical)`
 Op-codes: funct3 = `101`, funct7 = `0000000`
-(shamt is the shift amount, encoded in imm[4:0])
 
 9. srai 
 Format: `srai rd, rs1, shamt`
 Description: `rd = rs1 >> shamt (arithmetic)`
 Op-codes: funct3 = `101`, funct7 = `0100000`
-(shamt is the shift amount, encoded in imm[4:0])
 
 ### S-type:
 #### Instruction format:    
