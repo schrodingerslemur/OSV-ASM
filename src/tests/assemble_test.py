@@ -1,7 +1,7 @@
 import sys
 
 from src.assemble import get_opcode_type, parse_op, handle_address_and_label
-from src.errors import InvalidRegisterError, MissingOperationError, InvalidOperationError
+from src.errors import InvalidArgumentError, InvalidRegisterError, MissingOperationError, InvalidOperationError
 
 def test_parse_op_valid():
     line = "ADD R1, R2, R3"
@@ -55,12 +55,21 @@ def test_handle_address_and_label():
     assert metadata['labels']['loop'] == 4
     assert metadata['address'] == 4
 
-    def test_get_register():
-        from src.assemble import get_register
-        assert get_register('r0') == 0
-        assert get_register('r15') == 15
-        assert get_register('r31') == 31
-        try:
-            get_register('r32')
-        except InvalidRegisterError as e:
-            assert isinstance(e, InvalidRegisterError)
+def test_get_register():
+    from src.assemble import get_register
+    assert get_register('r0') == 0
+    assert get_register('r15') == 15
+    assert get_register('r31') == 31
+    try:
+        get_register('r32')
+    except InvalidRegisterError as e:
+        assert isinstance(e, InvalidRegisterError)
+
+def test_check_imm():
+    from src.assemble import check_imm
+    assert check_imm('100') == '100'
+    assert check_imm('-50') == '-50'
+    try:
+        check_imm('abc')
+    except InvalidArgumentError as e:
+        assert isinstance(e, InvalidArgumentError)
