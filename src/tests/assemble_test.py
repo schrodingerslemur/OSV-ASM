@@ -1,6 +1,6 @@
 import sys
 
-from src.assemble import parse_op, handle_address_and_label
+from src.assemble import get_opcode_type, parse_op, handle_address_and_label
 from src.errors import MissingOperationError, InvalidOperationError
 
 def test_parse_op_valid():
@@ -22,19 +22,18 @@ def test_parse_op_missing():
     except MissingOperationError as e:
         assert isinstance(e, MissingOperationError)
 
-def test_get_opcode_and_type_invalid():
-    from src.assemble import get_opcode_and_type
+def test_get_opcode_type_invalid():
+    from src.assemble import get_opcode_type
     invalid_op = "invalid_op"
     try:
-        get_opcode_and_type(invalid_op)
+        get_opcode_type(invalid_op)
     except InvalidOperationError as e:
         assert isinstance(e, InvalidOperationError)
 
-def test_get_opcode_and_type_valid():
-    from src.assemble import get_opcode_and_type
+def test_get_opcode_type_valid():
+    from src.assemble import get_opcode_type
     op = "add"
-    opcode, opcode_type = get_opcode_and_type(op)
-    assert opcode == '0110011'
+    opcode_type = get_opcode_type(op)
     assert opcode_type == 'R'
 
 def test_handle_address_and_label():

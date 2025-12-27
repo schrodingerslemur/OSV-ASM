@@ -60,7 +60,7 @@ def assemble_line(
     handle_address_and_label(op, metadata) # Updates metadata with labels and address
 
     # Instruction-handling --------------------------
-    opcode, opcode_type = get_opcode_and_type(op)
+    opcode_type = get_opcode_type(op)
 
     if opcode_type == 'PSEUDO':
         args = get_pseudo_args(op, non_op, metadata)
@@ -70,18 +70,19 @@ def assemble_line(
             instructions = get_instruction(pseudo_op, pseudo_non_op, pseudo_opcode, pseudo_opcode_type, metadata)
             return instructions # list of instructions
     else:
-        instruction = get_instruction(op, non_op, opcode, opcode_type, metadata)
+        args = get_args(op, non_op, opcode_type, metadata)
+        instruction = get_instruction(opcode_type, args)
         return instruction
-
-def get_opcode_and_type(
+    
+def get_opcode_type(
     op: str
-) -> tuple[str, str]:
+) -> str:
     """Retrieves the opcode and type for a given operation."""
     if op in pseudo:
-        return None, 'PSEUDO'
+        return 'PSEUDO'
     elif op in opcode:
         opcode_info = opcode[op]
-        return opcode_info[0], opcode_info[1]
+        return opcode_info[1]
     else:
         raise InvalidOperationError(f"Invalid operation: {op}")
     
