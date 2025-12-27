@@ -107,7 +107,7 @@ def get_args(
         rs1 = match.group(2)
         args = [args[0], rs1, offset]  # rs2, rs1, offset
 
-        return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), check_imm(args[2])]
+        return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), get_imm(args[2])]
     
     elif opcode_type in ['J']:
         # args: rd, label
@@ -119,23 +119,23 @@ def get_args(
 
     elif opcode_type in ['I', 'SI', 'JI']:
         # args: rd, rs1, imm
-        return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), check_imm(args[2])]
+        return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), get_imm(args[2])]
     
     else:
         raise InvalidOperationError(f"Invalid opcode type: {opcode_type}")
     
 
-def check_imm(
+def get_imm(
     imm_str: str
 ) -> str:
     """Validates an immediate value"""
     try:
-        _ = int(imm_str)
+        imm = int(imm_str)
     except ValueError:
         raise InvalidArgumentError(f"Invalid immediate value: {imm_str}")
     
     # TODO: ensure imm is within valid range based on instruction type
-    return imm_str
+    return format(imm & 0xFFF, '012b')  # Example: 12-bit immediate
 
 def get_register(
     reg_str: str

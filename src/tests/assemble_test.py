@@ -65,12 +65,12 @@ def test_get_register():
     except InvalidRegisterError as e:
         assert isinstance(e, InvalidRegisterError)
 
-def test_check_imm():
-    from src.assemble import check_imm
-    assert check_imm('100') == '100'
-    assert check_imm('-50') == '-50'
+def test_get_imm():
+    from src.assemble import get_imm
+    assert get_imm('100') == '100'
+    assert get_imm('-50') == '-50'
     try:
-        check_imm('abc')
+        get_imm('abc')
     except InvalidArgumentError as e:
         assert isinstance(e, InvalidArgumentError)
 
@@ -82,8 +82,8 @@ def test_get_args():
     opcode_type = 'R'
     metadata = {}
     args = get_args(op, args_str, opcode_type, metadata)
-    assert args == ['00001', '00010', '100']
+    assert args == ['0010011', '00001', '00010', '00100']
 
     args_str = " r3 , r4 , -50 "
     args = get_args(op, args_str, opcode_type, metadata)
-    assert args == ['00011', '00100', '-50']
+    assert args == ['0010011', '00011', '00100', '-50']
