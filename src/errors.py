@@ -9,3 +9,7 @@ class MissingOperationError(AssemblyError):
 class InvalidOperationError(AssemblyError):
     """Exception raised for invalid operations."""
     pass
+
+class InvalidRegisterError(AssemblyError):
+    """Exception raised for invalid register usage."""
+    pass
