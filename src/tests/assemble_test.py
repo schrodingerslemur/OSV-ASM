@@ -36,3 +36,22 @@ def test_get_opcode_and_type_valid():
     opcode, opcode_type = get_opcode_and_type(op)
     assert opcode == '0110011'
     assert opcode_type == 'R'
+
+def test_handle_address_and_label():
+    metadata = {
+        'labels': {},
+        'address': 0,
+    }
+    op_label = "start:"
+    handle_address_and_label(op_label, metadata)
+    assert metadata['labels']['start'] == 0
+    assert metadata['address'] == 0
+
+    op_instr = "add"
+    handle_address_and_label(op_instr, metadata)
+    assert metadata['address'] == 4
+
+    op_label2 = "loop:"
+    handle_address_and_label(op_label2, metadata)
+    assert metadata['labels']['loop'] == 4
+    assert metadata['address'] == 4
