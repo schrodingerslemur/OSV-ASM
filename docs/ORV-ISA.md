@@ -27,42 +27,52 @@ Based on the base instructions on RISCV-32I
 1. add
 Format: `add rd, rs1, rs2`
 Description: `rd = rs1 + rs2`
+Op-codes: funct3 = `000`, funct7 = `0000000`
 
 2. sub
 Format: `sub rd, rs1, rs2`
 Description: `rd = rs1 - rs2`
+Op-codes: funct3 = `000`, funct7 = `0100000`
 
 3. sll
 Format: `sll rd, rs1, rs2`
 Description: `rd = rs1 << rs2`
+Op-codes: funct3 = `001`, funct7 = `0000000`
 
 4. slt
 Format: `slt rd, rs1, rs2`
 Description: `rd = rs1 < rs2 ? 1 : 0`
+Op-codes: funct3 = `010`, funct7 = `0000000`
 
 5. sltu
 Format: `sltu rd, rs1, rs2`
 Description: `rd = rs1 < rs2 (unsigned) ? 1 : 0`
+Op-codes: funct3 = `011`, funct7 = `0000000`
 
 6. xor
 Format: `xor rd, rs1, rs2`
 Description: `rd = rs1 ^ rs2`
+Op-codes: funct3 = `100`, funct7 = `0000000`
 
 7. srl
 Format: `srl rd, rs1, rs2`
 Description: `rd = rs1 >> rs2 (logical)`
+Op-codes: funct3 = `101`, funct7 = `0000000`
 
 8. sra
 Format: `sra rd, rs1, rs2`
 Description: `rd = rs1 >> rs2 (arithmetic)`
+Op-codes: funct3 = `101`, funct7 = `0100000`
 
 9. or
 Format: `or rd, rs1, rs2`
 Description: `rd = rs1 | rs2`
+Op-codes: funct3 = `110`, funct7 = `0000000`
 
 10. and
 Format: `and rd, rs1, rs2`
 Description: `rd = rs1 & rs2`
+Op-codes: funct3 = `111`, funct7 = `0000000`
 
 ### I-type:
 #### Instruction format:
