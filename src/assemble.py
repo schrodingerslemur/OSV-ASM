@@ -97,10 +97,10 @@ def get_instruction(
     elif opcode_type == 'SI':
         funct7 = opcode[op][2]
         funct3 = opcode[op][3]
-        rd, rs1, imm = args[1], args[2], args[3]
+        rd, rs1, imm = args[1], args[2], args[3][-5:] # shamt
         instruction = funct7 + imm + rs1 + funct3 + rd + opcode[op][0]
     
-    elif opcode_type == 'LI':
+    elif opcode_type == 'LI': # TODO: add JI-type too
         funct3 = opcode[op][2]
         rd, rs1, imm = args[1], args[2], args[3]
         instruction = imm + rs1 + funct3 + rd + opcode[op][0]
@@ -108,9 +108,23 @@ def get_instruction(
     elif opcode_type == 'S':
         funct3 = opcode[op][2]
         rs2, rs1, imm = args[1], args[2], args[3]
-        imm_high = imm[:7]
-        imm_low = imm[7:]
+        imm_high = imm[:7] # imm[11:5]
+        imm_low = imm[7:] # imm[4:0]
         instruction = imm_high + rs2 + rs1 + funct3 + imm_low + opcode[op][0]
+    
+    elif opcode_type == 'B':
+        funct3 = opcode[op][2]
+        rs1, rs2, imm = args[1], args[2], args[3]
+        imm_bits = imm
+        imm_12 = imm_bits[0]          # imm[12]
+        imm_10_5 = imm_bits[1:7]      # imm[10:5]
+        imm_4_1 = imm_bits[7:11]      # imm[4:1]
+        imm_11 = imm_bits[11]         # imm[11]
+        instruction = imm_12 + imm_10_5 + rs2 + rs1 + funct3 + imm_4_1 + imm_11 + opcode[op][0]
+
+    elif opcode_type == 'U':
+        rd, imm = args[1], args[2]
+        instruction = imm + rd + opcode[op][0]
     
     elif opcode_type == 'J':
         rd, imm = args[1], args[2]
