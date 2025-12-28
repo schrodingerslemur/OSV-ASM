@@ -72,9 +72,11 @@ def test_get_imm():
             'label1': 100,
         }
     }
-    assert get_imm('label1', metadata) == '000001100100'
-    assert get_imm('100', metadata) == '000001100100'
-    assert get_imm('-50', metadata) == '111111001110'
+    assert get_imm('label1', metadata, type='I') == '000001100100'
+    assert get_imm('100', metadata, type='I') == '000001100100'
+    assert get_imm('-50', metadata, type='I') == '111111001110'
+
+    assert get_imm('200000', metadata, type='U') == '00110000110101000000'
 
     try:
         get_imm('abc', metadata)
@@ -104,4 +106,4 @@ def test_get_args():
     args_str = "r1, 200"
     opcode_type = 'J'
     args = get_args(op, args_str, opcode_type, metadata)
-    assert args == ['1101111', '00001', '000011001000']
+    assert args == ['1101111', '00001', '00000000000011001000']

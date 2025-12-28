@@ -143,14 +143,15 @@ def get_imm(
     
     if type in ['I', 'S', 'B', 'LI', 'SI']: # handle splitting in two parts in get_instruction
         # 12-bit immediate
-        imm = imm & 0xFFF
-        return format(imm, '012b')
+        bits = 12
     elif type in ['U', 'J']:
         # 20-bit immediate
-        imm = imm & 0xFFFFF
-        return format(imm, '020b')
+        bits = 20
     else:
         raise InvalidOperationError(f"Invalid immediate type: {type}")
+
+    imm = imm & ((1 << bits) - 1)  # Mask to required bits
+    return format(imm, f'0{bits}b')
 
 def get_register(
     reg_str: str
