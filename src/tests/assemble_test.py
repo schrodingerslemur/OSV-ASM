@@ -93,3 +93,15 @@ def test_get_args():
     args_str = " r3 , r4 , -50 "
     args = get_args(op, args_str, opcode_type, metadata)
     assert args == ['0010011', '00011', '00100', '111111001110']
+
+    op = "add"
+    args_str = "r5, r6, r7"
+    opcode_type = 'R'
+    args = get_args(op, args_str, opcode_type, metadata)
+    assert args == ['0110011', '00101', '00110', '00111']
+
+    op = "jal"
+    args_str = "r1, 200"
+    opcode_type = 'J'
+    args = get_args(op, args_str, opcode_type, metadata)
+    assert args == ['1101111', '00001', '000011001000']
