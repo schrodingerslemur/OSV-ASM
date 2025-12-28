@@ -8,12 +8,20 @@ For reference, I am using the [RISC-V 32I ISA](https://msyksphinz-self.github.io
 p.s. the word `OSTRICH` is purely for performative reasons.
 
 ## Usage
+1. Clone the repository
+2. Install dependencies
 ```bash
 uv install
+# or
+pip install -r requirements.txt
+```
+3. Run the assembler
+```bash
+uv run -m src.main <input_file.asm> [--o <output_file.list>]
 ```
 
 ## Testing
 Run
 ```
-./test
+uv run -m pytest -vv
 ```
