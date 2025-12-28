@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 3. Run the assembler
 ```bash
-uv run -m src.main <input_file.asm> [--o <output_file.list>]
+uv run -m src.main <input_file.asm> [-o <output_file.list>]
 ```
 
 ## Testing
