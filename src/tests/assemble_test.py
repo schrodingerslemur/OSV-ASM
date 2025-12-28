@@ -107,3 +107,14 @@ def test_get_args():
     opcode_type = 'J'
     args = get_args(op, args_str, opcode_type, metadata)
     assert args == ['1101111', '00001', '00000000000011001000']
+    
+def test_get_args_invalid():
+    from src.assemble import get_args
+    op = "addi"
+    args_str = "r1, r2"  # Missing immediate
+    opcode_type = 'I'
+    metadata = {}
+    try:
+        get_args(op, args_str, opcode_type, metadata)
+    except InvalidArgumentError as e:
+        assert isinstance(e, InvalidArgumentError)

@@ -73,9 +73,54 @@ def assemble_line(
     else:
         # Normal instruction
         args = get_args(op, non_op, opcode_type, metadata)
-        instruction = get_instruction(opcode_type, args)
+        instruction = get_instruction(op, opcode_type, args)
         return instruction
 
+def get_instruction(
+    op: str,
+    opcode_type: str,
+    args: list[str],    
+) -> str:
+    """Generates the binary instruction based on opcode type and arguments."""
+    # TODO: fix imm parsing
+    if opcode_type == 'R':
+        funct7 = opcode[op][2]
+        funct3 = opcode[op][3]
+        rd, rs1, rs2 = args[1], args[2], args[3]
+        instruction = funct7 + rs2 + rs1 + funct3 + rd + opcode[op][0]
+    
+    elif opcode_type == 'I':
+        funct3 = opcode[op][2]
+        rd, rs1, imm = args[1], args[2], args[3]
+        instruction = imm + rs1 + funct3 + rd + opcode[op][0]
+    
+    elif opcode_type == 'SI':
+        funct7 = opcode[op][2]
+        funct3 = opcode[op][3]
+        rd, rs1, imm = args[1], args[2], args[3]
+        instruction = funct7 + imm + rs1 + funct3 + rd + opcode[op][0]
+    
+    elif opcode_type == 'LI':
+        funct3 = opcode[op][2]
+        rd, rs1, imm = args[1], args[2], args[3]
+        instruction = imm + rs1 + funct3 + rd + opcode[op][0]
+    
+    elif opcode_type == 'S':
+        funct3 = opcode[op][2]
+        rs2, rs1, imm = args[1], args[2], args[3]
+        imm_high = imm[:7]
+        imm_low = imm[7:]
+        instruction = imm_high + rs2 + rs1 + funct3 + imm_low + opcode[op][0]
+    
+    elif opcode_type == 'J':
+        rd, imm = args[1], args[2]
+        instruction = imm + rd + opcode[op][0]
+    
+    else:
+        raise InvalidOperationError(f"Invalid opcode type: {opcode_type}")
+
+    return instruction
+    
 def get_args(
     op: str,
     non_op: str,
@@ -131,7 +176,7 @@ def get_imm(
     type: str = 'I'
 ) -> str:
     """Validates an immediate value"""
-    # TODO: handle different bit-widths based on instruction type
+    # handle different bit-widths based on instruction type (resolved)
     # I-type: 12 bits, S-type: 12 bits, B-type: 12 bits, U-type: 20 bits, J-type: 20 bits
     try:
         imm = int(imm_str)
