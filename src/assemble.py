@@ -134,7 +134,7 @@ def get_imm(
         imm = int(imm_str)
     except ValueError:
         if imm_str in metadata['labels']:
-            imm = format(metadata['labels'][imm_str], '012b')
+            return format(metadata['labels'][imm_str], '012b')
         else:
             raise InvalidArgumentError(f"Invalid immediate value: {imm_str}")
     
