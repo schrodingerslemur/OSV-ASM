@@ -10,7 +10,8 @@ app = typer.Typer(add_completion=False)
 
 @app.command()
 def main(
-    file_name: Annotated[str, typer.Argument(help="Name of the file to assemble")]
+    file_name: Annotated[str, typer.Argument(help="Name of the file to assemble")],
+    output: Annotated[str, typer.Option(help="Output file name", short_name="--o", default=None)] = None,
 ) -> None:
     """
     This functions takes in a '.asm' file name as input and writes the assembled machine code into a file of same name but with extension 'list'
@@ -46,7 +47,10 @@ def main(
     logger.info("Assembling file...")
     try:
         assembled_content = assemble(content)
-        output_file_name = file_name.replace('.asm', '.list')
+        if output:
+            output_file_name = output
+        else:
+            output_file_name = file_name.replace('.asm', '.list')
         with open(output_file_name, 'w') as output_file:
             output_file.write(assembled_content)
         logger.info(f"Assembly complete. Output written to {output_file_name}")
