@@ -100,7 +100,7 @@ def get_instruction(
         rd, rs1, imm = args[1], args[2], args[3][-5:] # shamt
         instruction = funct7 + imm + rs1 + funct3 + rd + opcode[op][0]
     
-    elif opcode_type == 'LI': # TODO: add JI-type too
+    elif opcode_type in ['LI', 'JI']: # add JI-type too (resolved)
         funct3 = opcode[op][2]
         rd, rs1, imm = args[1], args[2], args[3]
         instruction = imm + rs1 + funct3 + rd + opcode[op][0]
