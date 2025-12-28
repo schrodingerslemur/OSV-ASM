@@ -3,8 +3,8 @@ from typing import Annotated
 
 import logging
 
-from assemble import assemble
-from errors import AssemblyError
+from src.assemble import assemble
+from src.errors import AssemblyError
 
 app = typer.Typer(add_completion=False)
 
