@@ -11,7 +11,7 @@ app = typer.Typer(add_completion=False)
 @app.command()
 def main(
     file_name: Annotated[str, typer.Argument(help="Name of the file to assemble")],
-    output: Annotated[str, typer.Option(help="Output file name", short_name="--o", default=None)] = None,
+    output: Annotated[str, typer.Argument(help="Output file name")] = None,
 ) -> None:
     """
     This functions takes in a '.asm' file name as input and writes the assembled machine code into a file of same name but with extension 'list'
