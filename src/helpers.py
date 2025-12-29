@@ -167,7 +167,7 @@ def parse_op(
     """Parses a line into operation and non-operation parts."""
 
     line = line.strip()
-    match = re.search(r'\s*(\w+)\s+(.*)', line)
+    match = re.search(r'\s*(\w+)\s+([^#]*)', line)
     if not match:
         raise MissingOperationError(f"Missing operation in line: {line}")
     return match.group(1).lower(), match.group(2).lower()

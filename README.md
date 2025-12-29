@@ -21,7 +21,7 @@ uv run -m src.main <input_file.asm> [-o <output_file.list>]
 ```
 
 ## Testing
-Run
+Run test with:
 ```
 uv run -m pytest -vv
 ```

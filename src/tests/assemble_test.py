@@ -129,6 +129,10 @@ def test_add():
     instruction = assemble_line(line, metadata)
     assert instruction == '0000000' + '00011' + '00010' + '000' + '00001' + '0110011'  # funct7 + rs2 + rs1 + funct3 + rd + opcode
 
+    line = "add r10, r11, r12 # comment"
+    instruction = assemble_line(line, metadata)
+    assert instruction == '0000000' + '01100' + '01011' + '000' + '01010' + '0110011'  # funct7 + rs2 + rs1 + funct3 + rd + opcode
+
 def test_add_invalid():
     from src.assemble import assemble_line
     metadata = {
