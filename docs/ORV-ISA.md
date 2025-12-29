@@ -1,6 +1,8 @@
 # Instruction set architecture for ORV
 Based on the base instructions on RISCV-32I
 
+This implementation has **32** general purpose registers
+
 ## Types of instructions:
 1. R-type: All register-only integer computation instructions
 2. I-type: All register-immediate integer computation instructions
