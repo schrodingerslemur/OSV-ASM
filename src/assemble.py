@@ -62,7 +62,7 @@ def assemble_line(
     opcode_type = get_opcode_type(op)
 
     if opcode_type == 'PSEUDO':
-        # TODO: Handle pseudo-instructions (and everything in this block)
+        # Handle pseudo-instructions (and everything in this block) (resolved)
         args = get_pseudo_args(op, non_op, metadata) # # includes actual registers and immediates
         instructions = []
         for pseudo_inst in pseudo[op]:                  # does not include actual registers and immediates
@@ -92,6 +92,7 @@ def replace_args_in_pseudo(
     elif len(args) == 2:
         rd, imm_or_rs = args[0], args[1]
         pseudo_inst = pseudo_inst.replace('x0', f'r{(int(rd,2))}').replace('IMM', f'{int(imm_or_rs, 2)}').replace('x1', f'r{(int(imm_or_rs,2))}')
+        print(pseudo_inst)
         return pseudo_inst
     else:
         raise InvalidArgumentError(f"Invalid number of arguments for pseudo-instruction: {pseudo_inst} with args {args}")

@@ -151,6 +151,10 @@ def test_addi():
     instruction = assemble_line(line, metadata)
     assert instruction == '000001100100' + '00010' + '000' + '00001' + '0010011'  # imm + rs1 + funct3 + rd + opcode
 
+    line = 'addi r1, r2, 0'
+    instruction = assemble_line(line, metadata)
+    assert instruction == '000000000000' + '00010' + '000' + '00001' + '0010011'  # imm + rs1 + funct3 + rd + opcode
+
 def test_addi_invalid_imm():
     from src.assemble import assemble_line
     metadata = {
@@ -183,18 +187,18 @@ def test_replace_args_in_pseudo():
     replaced_inst = replace_args_in_pseudo(pseudo_inst, args)
     assert replaced_inst == "addi r1, r1, 1000"
 
-# def test_pseudo_mv():
-#     from src.assemble import assemble_line
-#     metadata = {
-#         'labels': {},
-#         'address': 0,
-#     }
-#     line = "mv r1, r2"
-#     instructions = assemble_line(line, metadata)
-#     assert len(instructions) == 1
-#     assert instructions[0] == '0000000' + '00010' + '00000' + '000' + '00001' + '0010011'  # addi r1, r2, 0
+def test_pseudo_mv():
+    from src.assemble import assemble_line
+    metadata = {
+        'labels': {},
+        'address': 0,
+    }
+    line = "mv r1, r2"
+    instructions = assemble_line(line, metadata)
+    assert len(instructions) == 1
+    assert instructions[0] == '0000000' + '00000' + '00010' + '000' + '00001' + '0010011'  # addi r1, r2, 0
 
-
+# 000000000010 00000 000 00001 0010011
 # get_args non_op -> ['r1', 'r2', '100'] etc
 # get_instruction(op, opcode_type, args) -> binary instruction
 
