@@ -169,7 +169,11 @@ def parse_op(
     line = line.strip()
     match = re.search(r'\s*(\w+)\s+([^#]*)', line)
     if not match:
-        raise MissingOperationError(f"Missing operation in line: {line}")
+        label = re.match(r'\s*(\w+:)', line)
+        if label:
+            return label.group(1).lower(), ''
+        else:
+            raise MissingOperationError(f"Missing operation in line: {line}")
     return match.group(1).lower(), match.group(2).lower()
 
 def handle_address_and_label(
