@@ -56,8 +56,8 @@ def main(
         logger.info(f"Assembly complete. Output written to {output_file_name}")
     except AssemblyError as ae:
         logger.error(f"Assembly error: {ae}")
-    except Exception as e:
-        logger.error(f"An unexpected error occurred during assembly: {e}")
+    # except Exception as e:
+    #     logger.error(f"An unexpected error occurred during assembly: {e}")
     
     return
 

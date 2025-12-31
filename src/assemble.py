@@ -120,7 +120,8 @@ def get_pseudo_args(
     """Extracts arguments for pseudo-instructions."""
     args = [args.strip() for args in non_op.split(',')]
     if op in ['nop']:
-       assert len(args) == 0
+       print(args)
+       assert len(args) == 1 and args[0] == ''
        args = []
     elif op in ['not', 'neg']:
        assert len(args) == 1
