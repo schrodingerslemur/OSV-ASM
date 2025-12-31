@@ -105,7 +105,7 @@ def get_args(
         # args: rd, rs1, rs2
         return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), get_register(args[2])]
 
-    elif opcode_type in ['I', 'SI', 'JI']:
+    elif opcode_type in ['I', 'SI', 'JI', 'B']:
         # args: rd, rs1, imm
         return [opcode[op][0]] + [get_register(args[0]), get_register(args[1]), get_imm(args[2], metadata, type=opcode_type)]
     
