@@ -23,6 +23,18 @@ def assemble(
 
     assembled_lines = []
 
+    # Parse labels first
+    for line in content.splitlines():
+        # Comments or empty lines
+        if line == '' or line.startswith('#'):
+            continue 
+        
+        op, non_op = parse_op(line)
+        handle_address_and_label(op, metadata)
+    
+    # Reset address
+    metadata['address'] = 0
+
     for line in content.splitlines():
         # Comments or empty lines
         if line == '' or line.startswith('#'):
@@ -55,8 +67,11 @@ def assemble_line(
     # Operation-handling ----------------------------
     op, non_op = parse_op(line)            # Extract operation and non-operation parts
 
+    if op.endswith(':'):
+        return None  # Label-only line, no instruction to assemble
+
     # Label-handling ----------------
-    handle_address_and_label(op, metadata) # Updates metadata with labels and address
+    # handle_address_and_label(op, metadata) # Updates metadata with labels and address
 
     # Instruction-handling --------------------------
     opcode_type = get_opcode_type(op)
